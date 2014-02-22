@@ -1,0 +1,129 @@
+!!!
+%html
+  %head
+    %title Anketa
+    = stylesheet_link_tag    'application', :media => 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    .main_container
+      .main_content-header
+        .main_content-header__logo.pull-left
+          %a{href: '/'}
+            =image_tag 'logo.png'
+        .main_content-header__content.pull-right
+          %a.main_content-header__content-button.pull-right.btn.yellow-el{href: '#'}
+            ПРИНЯТЬ УЧАСТИЕ В АКЦИИ
+          .main_content-header__content-contacts.menu-white.pull-right
+            .main_content-header__content-contacts-city
+              Санкт-Петербург
+            .main_content-header__content-contacts-phone
+              %span.glyphicon.glyphicon-earphone
+              (812) 335-40-80
+          .clearfix
+          .main_content-header__menu
+            %a.main_content-header__menu-link.menu-white{href: '#'}
+              Правила акции
+            %a.main_content-header__menu-link.menu-white{href: '#'}
+              Вопросы
+            %a.main_content-header__menu-link.menu-white{href: '#'}
+              Призы
+            %a.main_content-header__menu-link.menu-white{href: '#'}
+              Партнеры
+            %a.main_content-header__menu-link.menu-white{href: '#'}
+              О воде Прима Аква
+            %a.main_content-header__menu-link.menu-white{href: '#'}
+              О Болгарии
+
+      .main_content-body
+        .main_content-body__gifts
+          .main_content-body__gifts-airplain
+            = image_tag 'airplane.png'
+          .main_content-body__gifts-coffe
+            = image_tag 'cofe_machine.png'
+          .main_content-body__gifts-velo
+            = image_tag 'velo.png'
+          .main_content-body__gifts-notebook
+            = image_tag 'notebook.png'
+          .main_content-body__gifts-info.menu-white
+            .main_content-body__gifts-info-dates
+              Сроки проведения акции с 1 марта по 30 апреля.
+            .main_content-body__gifts-info-action
+              Розыгрыш призов - 5 мая.
+        .main_content-body__conditions
+          Для участия в акции необходимо выбрать один из следующих вариантов:
+      .main_content-cases
+        .main_content-cases__arrow
+          = image_tag 'arrow.png'
+        .main_content-cases__body.row
+          .main_content-cases__body_home.col-md-4
+            .one_case
+              .one_case__title
+                Я заказываю воду
+                %br
+                6-19л. на дом
+              .one_case__gift_first-part
+                = image_tag 'air_machine.png'
+                .one_case__gift_first-part_name
+                  Очиститель воздуха
+              .one_case__gift_second-part
+                50 наборов
+                %br
+                по 10х19л. воды
+              .one_case__gift_third-part
+                100 наборов
+                %br
+                по 12х0,6л. воды
+              %a.one_case__gift_red_button.btn{href: '#'}
+                Выбрать
+          .main_content-cases__body_office.col-md-4
+            .one_case
+              .one_case__title
+                Я пью воду
+                %br
+                19л. в офисе
+              .one_case__gift_first-part
+                = image_tag 'cofe_present.png'
+                .one_case__gift_first-part_name
+                  Кофе машина
+              .one_case__gift_second-part
+                50 сертификатов
+                %br
+                номиналом 500 рублей
+                %br
+                в нашем
+                = link_to 'интернет магазине', 'http://prima-aqua.ru', target: '_blank'
+              .one_case__gift_third-part
+                100 наборов
+                %br
+                по 12х0,6л. воды
+              %a.one_case__gift_red_button.btn{href: '#'}
+                Выбрать
+          .main_content-cases__body_shop.col-md-4
+            .one_case
+              .one_case__title
+                Я покупаю воду 6-8л.
+                %br
+                в магазинах
+              .one_case__gift_first-part
+                = image_tag 'velo_present.png'
+                .one_case__gift_first-part_name
+                  Велосипед
+              .one_case__gift_second-part
+                50 сумок-холодильников
+              .one_case__gift_third-part
+                100 наборов
+                %br
+                по 12х0,6л. воды
+              %a.one_case__gift_red_button.btn{href: '#'}
+                Выбрать
+      .main_content-footer
+        .main_content-footer__gift-text
+          .main_content-footer__gift-text_label
+            Суперприз
+          .main_content-footer__gift-text_content
+            Поездка на море с семьей в Болгарию!
+        .main_content-footer__text
+          Акция для жителей Санкт-Петербурга
+        .main_content-footer__rights
+          &copy; Аква Прима. #{Time.zone.now.year}

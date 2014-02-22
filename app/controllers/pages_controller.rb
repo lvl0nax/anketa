@@ -1,9 +1,13 @@
 class PagesController < ApplicationController
+  layout 'start_page', only: [:welcome]
+
   def show
     @page = Page.find(params[:id])
   end
 
-  def welcome; end
+  def welcome
+    @page = Page.order(:id).first
+  end
 
   def customer_type
 
