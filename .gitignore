@@ -25,6 +25,7 @@ capybara-*.html
 /log/*
 /tmp/*
 /db/*.sqlite3
+/db/*.yml
 /db/schema.rb
 /public/system/*
 /public/assets/*
