@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :find_pages
 
   def find_pages
-    @pages = Page.order(:id).all
+    @pages_all = Page.order(:id).all
   end
 end

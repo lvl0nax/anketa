@@ -24,13 +24,13 @@
               %span.glyphicon.glyphicon-earphone
               (812) 335-40-80
           .clearfix
-          - if @pages.present?
+          - if @pages_all.present?
             .main_content-header__menu
-              %a.main_content-header__menu-link.menu-white{href: url_for(@pages.first) }
-                = @pages.first.title
+              %a.main_content-header__menu-link.menu-white{href: url_for(@pages_all.first) }
+                = @pages_all.first.title
               %a.main_content-header__menu-link.menu-white{href: '/participants/new'}
                 Анкета
-              - @pages.last(@pages.size-1).each do |page|
+              - @pages_all.last(@pages_all.size-1).each do |page|
                 %a.main_content-header__menu-link.menu-white{href: url_for(page) }
                   = page.title
 
