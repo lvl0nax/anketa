@@ -21,9 +21,6 @@ class ParticipantsController < ApplicationController
     if params[:participant][:accessories].blank?
       messages.merge! participant_accessories: 'Вопрос о сопутствующих товарах остался не отвеченным.'
     end
-    if params[:participant][:birthday].blank?
-      messages.merge! participant_birthday: 'Вопрос о дне рождения остался не отвеченным.'
-    end
     if params[:participant][:email].blank?
       messages.merge! participant_email: 'Email остался не заполненым.'
     end
