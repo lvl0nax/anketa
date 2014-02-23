@@ -21,7 +21,7 @@
               %span.glyphicon.glyphicon-earphone
               (812) 335-40-80
           .clearfix
-          - if @pages
+          - if @pages.present?
             .main_content-header__menu
               %a.content-header__menu-link{href: url_for(@pages.first) }
                 = @pages.first.title
