@@ -519,3 +519,21 @@ h1, h2, h3, .normal {
   width: 800px;
   margin: 0 auto;
 }
+
+.thanks-content-text{
+  width: 800px;
+  margin: 100px auto;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.errors{
+  background-color: white;
+  color: red;
+}
+.error_field{
+  outline: 2px solid #ff0000;
+  .anketa_form__label{
+    color: #ff0000;
+  }
+}

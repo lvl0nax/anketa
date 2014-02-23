@@ -6,6 +6,7 @@ Anketa::Application.routes.draw do
 
   resources :pages, only: :show
   resources :participants, only: [:new, :create]
+  get 'thanks' => 'participants#thanks', as: :thanks
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

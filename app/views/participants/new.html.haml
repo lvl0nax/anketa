@@ -1,144 +1,148 @@
 .new_participant
   = simple_form_for @participant do |f|
+    .errors
+      - if @messages.present?
+        - @messages.each do |msg|
+          %p= msg.last
     .col-md-12
-      .styled_input
+      .styled_input.participant_surname{class: (@messages.present? && @messages[:participant_surname]) ? 'error_field' : '' }
         %span.glyphicon.glyphicon-user
-        = f.input :surname, placeholder: 'Фамилия', label: false
-      .styled_input
+        = f.input :surname, placeholder: 'Фамилия', label: false, require: true
+      .styled_input.participant_name{class: (@messages.present? && @messages[:participant_name]) ? 'error_field' : '' }
         %span.glyphicon.glyphicon-user
         = f.input :name, placeholder: 'Имя', label: false
-      .styled_input
+      .styled_input.participant_thirdname{class: (@messages.present? && @messages[:participant_thirdname]) ? 'error_field' : '' }
         %span.glyphicon.glyphicon-user
         = f.input :thirdname, placeholder: 'Отчество', label: false
-      .styled_input
+      .styled_input.participant_email{class: (@messages.present? && @messages[:participant_email]) ? 'error_field' : '' }
         %span.glyphicon.glyphicon-envelope
         = f.input :email, placeholder: 'E-mail', label: false
-      .styled_input
+      .styled_input.participant_phone{class: (@messages.present? && @messages[:participant_phone]) ? 'error_field' : '' }
         %span.glyphicon.glyphicon-earphone
         = f.input :phone, placeholder: 'Телефон', label: false
-      .form-group.text-center
+      .form-group.text-center.participant_birhday{class: (@messages.present? && @messages[:participant_birthday]) ? 'error_field' : '' }
         = f.input :birthday, label: 'Дата рождения:', order: [:day, :month, :year], start_year: Date.today.year - 90, end_year: Date.today.year - 17, input_html: {class: 'form-control'}
     .anketa_form
-      .input.participant_drinking_place
+      .input.participant_drinking_place{class: (@messages.present? && @messages[:participant_drinking_place]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Где вы пьете нашу воду?
         .col-md-6
-          %input#drinking1.custome_checkbox{name: 'participant[drinking_place][]', type: 'checkbox', value: 'Заказываю домой', checked: (params[:home].present? ? 'checked' : nil) }
+          %input#drinking1.custome_checkbox{name: 'participant[drinking_place][]', type: 'checkbox', value: 'Заказываю домой', checked: (params[:home].present? || @params[:drinking_place].include?('Заказываю домой') ? 'checked' : nil) }
           %label.checkbox{for: 'drinking1'}
             Заказываю домой
-          %input#drinking2.custome_checkbox{name: 'participant[drinking_place][]', type: 'checkbox', value: 'Покупаю в магазине', checked: (params[:shop].present? ? 'checked' : nil) }
+          %input#drinking2.custome_checkbox{name: 'participant[drinking_place][]', type: 'checkbox', value: 'Покупаю в магазине', checked: (params[:shop].present? || @params[:drinking_place].include?('Покупаю в магазине') ? 'checked' : nil) }
           %label.checkbox{for: 'drinking2'}
             Покупаю в магазине
-          %input#drinking3.custome_checkbox{name: 'participant[drinking_place][]', type: 'checkbox', value: 'Пью в офисе', checked: (params[:office].present? ? 'checked' : nil) }
+          %input#drinking3.custome_checkbox{name: 'participant[drinking_place][]', type: 'checkbox', value: 'Пью в офисе', checked: (params[:office].present? || @params[:drinking_place].include?('Пью в офисе') ? 'checked' : nil) }
           %label.checkbox{for: 'drinking3'}
             Пью в офисе
 
-      .input.participant_source_info
+      .input.participant_source_info{class: (@messages.present? && @messages[:participant_source_info]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Откуда Вы узнали о нашей компании?
         .col-md-6
-          %input#info1.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'Интернет'}
+          %input#info1.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'Интернет', checked: (@params[:source_info].to_s.include?('Интернет') ? 'checked' : nil) }
           %label.checkbox{for: 'info1'}
             Интернет
-          %input#info2.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'Рекомендации друзей'}
+          %input#info2.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'Рекомендации друзей', checked: (@params[:source_info].to_s.include?('Рекомендации друзей') ? 'checked' : nil) }
           %label.checkbox{for: 'info2'}
             Рекомендации друзей
-          %input#info3.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'увидел в магазине'}
+          %input#info3.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'Увидел в магазине', checked: (@params[:source_info].to_s.include?('Увидел в магазине') ? 'checked' : nil) }
           %label.checkbox{for: 'info3'}
             Увидел в магазине
-          %input#info4.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'увидел машину с логотипом компании'}
+          %input#info4.custome_checkbox{name: 'participant[source_info][]', type: 'checkbox', value: 'Увидел машину с логотипом компании', checked: (@params[:source_info].to_s.include?('Увидел машину с логотипом компании') ? 'checked' : nil) }
           %label.checkbox{for: 'info4'}
             Увидел машине с логотипом компании
-          %input.with_black_border{name: 'participant[source_info][]', placeholder: 'Другое...'}
+          %input.with_black_border{name: 'participant[source_info][]', placeholder: 'Другое...', value: (@params[:source_info].blank? || 'Увидел машине с логотипом компании Увидел в магазине Рекомендации друзей Интернет'.include?(val = @params[:source_info].to_s.split(' | ').last)) ? nil : val }
 
-      .input.participant_time_using
+      .input.participant_time_using{class: (@messages.present? && @messages[:participant_time_using]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Сколько времени вы являетесь нашим клиентом?
         .col-md-6
-          %input#time_using1.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Когда узнал об акции'}
+          %input#time_using1.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Когда узнал об акции', checked: (@params[:time_using].to_s.include?('Когда узнал об акции') ? 'checked' : nil) }
           %label.checkbox{for: 'time_using1'}
             Когда узнал об акции
-          %input#time_using2.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Менее полугода'}
+          %input#time_using2.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Менее полугода', checked: (@params[:time_using].to_s.include?('Менее полугода') ? 'checked' : nil) }
           %label.checkbox{for: 'time_using2'}
             Менее полугода
-          %input#time_using3.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'От полугода до года'}
+          %input#time_using3.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'От полугода до года', checked: (@params[:time_using].to_s.include?('От полугода до года') ? 'checked' : nil) }
           %label.checkbox{for: 'time_using3'}
             От полугода до года
-          %input#time_using4.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Более года'}
+          %input#time_using4.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Более года', checked: (@params[:time_using].to_s.include?('Более года') ? 'checked' : nil) }
           %label.checkbox{for: 'time_using4'}
             Более года
-          %input#time_using5.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Более 2х лет'}
+          %input#time_using5.custome_checkbox{name: 'participant[time_using][]', type: 'checkbox', value: 'Более 2х лет', checked: (@params[:time_using].to_s.include?('Более 2х лет') ? 'checked' : nil) }
           %label.checkbox{for: 'time_using5'}
             Более 2х лет
 
-      .input.participant_important_thing
+      .input.participant_important_thing{class: (@messages.present? && @messages[:participant_important_thing]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Что для Вас важно при выборе воды?
         .col-md-6
-          %input#important_thing1.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Цена'}
+          %input#important_thing1.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Цена', checked: (@params[:important_thing].to_s.include?('Цена') ? 'checked' : nil) }
           %label.checkbox{for: 'important_thing1'}
             Цена
-          %input#important_thing2.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Качество'}
+          %input#important_thing2.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Качество', checked: (@params[:important_thing].to_s.include?('Качество') ? 'checked' : nil) }
           %label.checkbox{for: 'important_thing2'}
             Качество
-          %input#important_thing3.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Вкус'}
+          %input#important_thing3.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Вкус', checked: (@params[:important_thing].to_s.include?('Вкус') ? 'checked' : nil) }
           %label.checkbox{for: 'important_thing3'}
             Вкус
-          %input#important_thing4.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Время доставки'}
+          %input#important_thing4.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Время доставки', checked: (@params[:important_thing].to_s.include?('Время доставки') ? 'checked' : nil) }
           %label.checkbox{for: 'important_thing4'}
             Время доставки
-          %input#important_thing5.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Уровень сервиса'}
+          %input#important_thing5.custome_checkbox{name: 'participant[important_thing][]', type: 'checkbox', value: 'Уровень сервиса', checked: (@params[:important_thing].to_s.include?('Уровень сервиса') ? 'checked' : nil) }
           %label.checkbox{for: 'important_thing5'}
             Уровень сервиса
-          %input.with_black_border{name: 'participant[important_thing][]', placeholder: 'Другое...'}
+          %input.with_black_border{name: 'participant[important_thing][]', placeholder: 'Другое...', value: (@params[:important_thing].blank? || 'Уровень сервиса Время доставки Вкус Качество Цена'.include?(val2 = @params[:important_thing].to_s.split(' | ').last)) ? nil : val2 }
 
-      .input.participant_accessories
+      .input.participant_accessories{class: (@messages.present? && @messages[:participant_accessories]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Что бы Вам хотелось заказывать вместе с водой?
         .col-md-6
-          %input#accessories1.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Все для чая и кофе'}
+          %input#accessories1.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Все для чая и кофе', checked: (@params[:accessories].to_s.include?('Все для чая и кофе') ? 'checked' : nil) }
           %label.checkbox{for: 'accessories1'}
             Все для чая и кофе
-          %input#accessories2.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Доставка еды из ресторанов'}
+          %input#accessories2.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Доставка еды из ресторанов', checked: (@params[:accessories].to_s.include?('Доставка еды из ресторанов') ? 'checked' : nil) }
           %label.checkbox{for: 'accessories2'}
             Доставка еды из ресторанов
-          %input#accessories3.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Доставка продуктов питания из магазинов'}
+          %input#accessories3.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Доставка продуктов питания из магазинов', checked: (@params[:accessories].to_s.include?('Доставка продуктов питания из магазинов') ? 'checked' : nil) }
           %label.checkbox{for: 'accessories3'}
             Доставка продуктов питания из магазинов
-          %input#accessories4.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Хоз. Товары, концелярия и др.'}
+          %input#accessories4.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Хоз. Товары, концелярия и др.', checked: (@params[:accessories].to_s.include?('Хоз. Товары, концелярия и др.') ? 'checked' : nil) }
           %label.checkbox{for: 'accessories4'}
             Хоз. Товары, концелярия и др.
-          %input#accessories5.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Детское питание'}
+          %input#accessories5.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Детское питание', checked: (@params[:accessories].to_s.include?('Детское питание') ? 'checked' : nil) }
           %label.checkbox{for: 'accessories5'}
             Детское питание
-          %input#accessories6.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Корма для животных'}
+          %input#accessories6.custome_checkbox{name: 'participant[accessories][]', type: 'checkbox', value: 'Корма для животных', checked: (@params[:accessories].to_s.include?('Корма для животных') ? 'checked' : nil) }
           %label.checkbox{for: 'accessories6'}
             Корма для животных
-          %input.with_black_border{name: 'participant[accessories][]', placeholder: 'Другое...'}
+          %input.with_black_border{name: 'participant[accessories][]', placeholder: 'Другое...', value: (@params[:accessories].blank? || 'Все для чая и кофе Доставка еды из ресторанов Доставка продуктов питания из магазинов Хоз. Товары, концелярия и др. Детское питание Корма для животных'.include?(val3 = @params[:accessories].to_s.split(' | ').last)) ? nil : val3 }
 
-      .input.participant_improvements
+      .input.participant_improvements{class: (@messages.present? && @messages[:participant_improvements]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Что бы вы хотели, чтобы мы улучшили в нашем сервисе?
         .col-md-6
-          %input#improvements1.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Время доставки'}
+          %input#improvements1.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Время доставки', checked: (@params[:improvements].to_s.include?('Время доставки') ? 'checked' : nil) }
           %label.checkbox{for: 'improvements1'}
             Время доставки
-          %input#improvements2.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Удобство заказа'}
+          %input#improvements2.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Удобство заказа', checked: (@params[:improvements].to_s.include?('Удобство заказа') ? 'checked' : nil) }
           %label.checkbox{for: 'improvements2'}
             Удобство заказа
-          %input#improvements3.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Качество работы отдела продаж'}
+          %input#improvements3.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Качество работы отдела продаж', checked: (@params[:improvements].to_s.include?('Качество работы отдела продаж') ? 'checked' : nil) }
           %label.checkbox{for: 'improvements3'}
             Качество работы отдела продаж
-          %input#improvements4.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Удобство заказа по телефону'}
+          %input#improvements4.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Удобство заказа по телефону', checked: (@params[:improvements].to_s.include?('Удобство заказа по телефону') ? 'checked' : nil) }
           %label.checkbox{for: 'improvements4'}
             Удобство заказа по телефону
-          %input#improvements5.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Новые формы оплаты, в т.ч. кредитные карты'}
+          %input#improvements5.custome_checkbox{name: 'participant[improvements][]', type: 'checkbox', value: 'Новые формы оплаты, в т.ч. кредитные карты', checked: (@params[:improvements].to_s.include?('Новые формы оплаты, в т.ч. кредитные карты') ? 'checked' : nil) }
           %label.checkbox{for: 'improvements5'}
             Новые формы оплаты, в т.ч. кредитные карты
 
@@ -161,11 +165,11 @@
           %label.control-label.anketa_form__label
             Если вы выиграете главный приз, то в каком из двух комплексов хотели бы остановиться?
         .col-md-6
-          %input#hotel1.custome_checkbox{name: 'participant[hotel][]', type: 'checkbox', value: 'Sunny Seasons'}
+          %input#hotel1.custome_checkbox{name: 'participant[hotel][]', type: 'checkbox', value: 'Sunny Seasons', checked: (@params[:hotel].to_s.include?('Sunny Seasons') ? 'checked' : nil) }
           %label.checkbox{for: 'hotel1'}
             %a{href: '#'}
               Sunny Seasons
-          %input#hotel2.custome_checkbox{name: 'participant[hotel][]', type: 'checkbox', value: 'Lucky Seasons'}
+          %input#hotel2.custome_checkbox{name: 'participant[hotel][]', type: 'checkbox', value: 'Lucky Seasons', checked: (@params[:hotel].to_s.include?('Lucky Seasons') ? 'checked' : nil) }
           %label.checkbox{for: 'hotel2'}
             %a{href: '#'}
               Lucky Seasons
@@ -175,16 +179,16 @@
           %label.control-label.anketa_form__label
             Если в выиграете главный приз, то кого возьмете с собой (приз рассчитан на 4 человек)?
         .col-md-6
-          %input#company1.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Девушку/Молодого человека/Друзей'}
+          %input#company1.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Девушку/Молодого человека/Друзей', checked: (@params[:company].to_s.include?('Девушку/Молодого человека/Друзей') ? 'checked' : nil) }
           %label.checkbox{for: 'company1'}
             Девушку/Молодого человека/Друзей
-          %input#company2.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Супруга/супругу'}
+          %input#company2.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Супруга/супругу', checked: (@params[:company].to_s.include?('Супруга/супругу') ? 'checked' : nil) }
           %label.checkbox{for: 'company2'}
             Супруга/супругу
-          %input#company3.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Детей'}
+          %input#company3.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Детей', checked: (@params[:company].to_s.include?('Детей') ? 'checked' : nil) }
           %label.checkbox{for: 'company3'}
             Детей
-          %input#company4.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Родителей'}
+          %input#company4.custome_checkbox{name: 'participant[company][]', type: 'checkbox', value: 'Родителей', checked: (@params[:company].to_s.include?('Родителей') ? 'checked' : nil) }
           %label.checkbox{for: 'company4'}
             Родителей
 
@@ -193,25 +197,25 @@
           %label.control-label.anketa_form__label
             Если вы выиграете главный приз, то в какое время вы поедите?
         .col-md-6
-          %input#trip_time1.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина июня'}
+          %input#trip_time1.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина июня', checked: (@params[:trip_time].to_s.include?('Первая половина июня') ? 'checked' : nil) }
           %label.checkbox{for: 'trip_time1'}
             Первая половина июня
-          %input#trip_time2.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Вторая половина июня'}
+          %input#trip_time2.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Вторая половина июня', checked: (@params[:trip_time].to_s.include?('Вторая половина июня') ? 'checked' : nil) }
           %label.checkbox{for: 'trip_time2'}
             Вторая половина июня
-          %input#trip_time3.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина июля'}
+          %input#trip_time3.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина июля', checked: (@params[:trip_time].to_s.include?('Первая половина июля') ? 'checked' : nil) }
           %label.checkbox{for: 'trip_time3'}
             Первая половина июля
-          %input#trip_time4.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Вторая половина июля'}
+          %input#trip_time4.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Вторая половина июля', checked: (@params[:trip_time].to_s.include?('Вторая половина июля') ? 'checked' : nil) }
           %label.checkbox{for: 'trip_time4'}
             Вторая половина июля
-          %input#trip_time5.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина августа'}
+          %input#trip_time5.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина августа', checked: (@params[:trip_time].to_s.include?('Первая половина августа') ? 'checked' : nil) }
           %label.checkbox{for: 'trip_time5'}
             Первая половина августа
-          %input#trip_time6.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Вторая половина августа'}
+          %input#trip_time6.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Вторая половина августа', checked: (@params[:trip_time].to_s.include?('Вторая половина августа') ? 'checked' : nil) }
           %label.checkbox{for: 'trip_time6'}
             Вторая половина августа
-          %input#trip_time7.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина сентября'}
+          %input#trip_time7.custome_checkbox{name: 'participant[trip_time][]', type: 'checkbox', value: 'Первая половина сентября', checked: (@params[:trip_time].to_s.include?('Первая половина сентября') ? 'checked' : nil) }
           %label.checkbox{for: 'trip_time7'}
             Первая половина сентября
 
@@ -220,16 +224,16 @@
           %label.control-label.anketa_form__label
             Как часто вы и/или члены вашей семьи отдыхаете на море?
         .col-md-6
-          %input#frequency1.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: '1 раз в 2 года и реже'}
+          %input#frequency1.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: '1 раз в 2 года и реже', checked: (@params[:frequency].to_s.include?('1 раз в 2 года и реже') ? 'checked' : nil) }
           %label.checkbox{for: 'frequency1'}
             1 раз в 2 года и реже
-          %input#frequency2.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: '1 раз в год'}
+          %input#frequency2.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: '1 раз в год', checked: (@params[:frequency].to_s.include?('1 раз в год') ? 'checked' : nil) }
           %label.checkbox{for: 'frequency2'}
             1 раз в год
-          %input#frequency3.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: '2 раза в год'}
+          %input#frequency3.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: '2 раза в год', checked: (@params[:frequency].to_s.include?('2 раза в год') ? 'checked' : nil) }
           %label.checkbox{for: 'frequency3'}
             2 раза в год
-          %input#frequency4.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: 'Более 2 раз в год'}
+          %input#frequency4.custome_checkbox{name: 'participant[frequency][]', type: 'checkbox', value: 'Более 2 раз в год', checked: (@params[:frequency].to_s.include?('Более 2 раз в год') ? 'checked' : nil) }
           %label.checkbox{for: 'frequency4'}
             Более 2 раз в год
 
@@ -238,52 +242,52 @@
           %label.control-label.anketa_form__label
             Планировали ли вы уже отдых свой летний отдых, и если да, то куда?
         .col-md-6
-          %input#summer_holiday1.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Не планировал'}
+          %input#summer_holiday1.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Не планировал', checked: (@params[:summer_holiday].to_s.include?('Не планировал') ? 'checked' : nil) }
           %label.checkbox{for: 'summer_holiday1'}
             Не планировал
-          %input#summer_holiday2.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Планировал за границу'}
+          %input#summer_holiday2.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Планировал за границу', checked: (@params[:summer_holiday].to_s.include?('Планировал за границу') ? 'checked' : nil) }
           %label.checkbox{for: 'summer_holiday2'}
             Планировал за границу
-          %input#summer_holiday3.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Планировал в Болгарию'}
+          %input#summer_holiday3.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Планировал в Болгарию', checked: (@params[:summer_holiday].to_s.include?('Планировал в Болгарию') ? 'checked' : nil) }
           %label.checkbox{for: 'summer_holiday3'}
             Планировал в Болгарию
-          %input#summer_holiday4.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Планировал в Россию'}
+          %input#summer_holiday4.custome_checkbox{name: 'participant[summer_holiday][]', type: 'checkbox', value: 'Планировал в Россию', checked: (@params[:summer_holiday].to_s.include?('Планировал в Россию') ? 'checked' : nil) }
           %label.checkbox{for: 'summer_holiday4'}
             Планировал в Россию
 
-      .input.participant_summer_attitude
+      .input.participant_attitude
         .col-md-6
           %label.control-label.anketa_form__label
             Были ли вы уже в Болгарии и если да, то какое у вас впечатление от страны / если нет, то какое к ней отношение?
         .col-md-6
-          %input#attitude1.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '1'}
+          %input#attitude1.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '1', checked: (@params[:attitude].to_s.include?('1') ? 'checked' : nil) }
           %label.checkbox{for: 'attitude1'}
             1
-          %input#attitude2.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '2'}
+          %input#attitude2.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '2', checked: (@params[:attitude].to_s.include?('2') ? 'checked' : nil) }
           %label.checkbox{for: 'attitude2'}
             2
-          %input#attitude3.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '3'}
+          %input#attitude3.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '3', checked: (@params[:attitude].to_s.include?('3') ? 'checked' : nil) }
           %label.checkbox{for: 'attitude3'}
             3
-          %input#attitude4.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '4'}
+          %input#attitude4.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '4', checked: (@params[:attitude].to_s.include?('4') ? 'checked' : nil) }
           %label.checkbox{for: 'attitude4'}
             4
-          %input#attitude5.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '5'}
+          %input#attitude5.custome_checkbox{name: 'participant[attitude][]', type: 'checkbox', value: '5', checked: (@params[:attitude].to_s.include?('5') ? 'checked' : nil) }
           %label.checkbox{for: 'attitude5'}
             5
 
-      .input.participant_summer_abroad_apartment
+      .input.participant_abroad_apartment
         .col-md-6
           %label.control-label.anketa_form__label
             Планировали ли вы уже отдых свой летний отдых, и если да, то куда?
         .col-md-6
-          %input#abroad_apartment1.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Да, для отдыха'}
+          %input#abroad_apartment1.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Да, для отдыха', checked: (@params[:abroad_apartment].to_s.include?('Да, для отдыха') ? 'checked' : nil) }
           %label.checkbox{for: 'abroad_apartment1'}
             Да, для отдыха
-          %input#abroad_apartment2.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Да, для инвестиций'}
+          %input#abroad_apartment2.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Да, для инвестиций', checked: (@params[:abroad_apartment].to_s.include?('Да, для инвестиций') ? 'checked' : nil) }
           %label.checkbox{for: 'abroad_apartment2'}
             Да, для инвестиций
-          %input#abroad_apartment3.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Нет, не думал об этом'}
+          %input#abroad_apartment3.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Нет, не думал об этом', checked: (@params[:abroad_apartment].to_s.include?('Нет, не думал об этом') ? 'checked' : nil) }
           %label.checkbox{for: 'abroad_apartment3'}
             Нет, не думал об этом
     .anketa_submit_button
