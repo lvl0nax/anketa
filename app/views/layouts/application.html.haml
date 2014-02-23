@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %title Anketa
+    = stylesheet_link_tag    'application', :media => 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    .container
+      .content-header
+        .main_content-header__logo.pull-left
+          %a{href: '/'}
+            =image_tag 'logo.png'
+        .main_content-header__content.pull-right
+          %a.main_content-header__content-button.pull-right.btn.yellow-el{href: '#'}
+            ПРИНЯТЬ УЧАСТИЕ В АКЦИИ
+          .main_content-header__content-contacts.pull-right
+            .main_content-header__content-contacts-city
+              Санкт-Петербург
+            .main_content-header__content-contacts-phone
+              %span.glyphicon.glyphicon-earphone
+              (812) 335-40-80
+          .clearfix
+          - if @pages
+            .main_content-header__menu
+              %a.content-header__menu-link{href: url_for(@pages.first) }
+                = @pages.first.title
+              %a.content-header__menu-link{href: '/participants/new'}
+                Анкета
+              - @pages.last(@pages.size-1).each do |page|
+                %a.content-header__menu-link{href: url_for(page) }
+                  = page.title
+
+      .container_body
+        = yield
+
+      .container_footer
+        .main_content-footer__text
+          Акция для жителей Санкт-Петербурга
+        .main_content-footer__rights
+          &copy; Аква Прима. #{Time.zone.now.year}

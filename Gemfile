@@ -33,6 +33,10 @@ end
 
 gem 'jquery-rails', '< 3.0.0'
 
+gem 'russian'
+
+gem 'active_admin_editor'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

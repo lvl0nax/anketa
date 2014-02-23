@@ -1,7 +1,10 @@
 !!!
 %html
   %head
-    %title Anketa
+    %title
+      Прима-Аква - Акция | Prima-aqua
+    %meta{content: 'Прима-Аква - Акция, prima-aqua', name: 'description'}
+    %meta{content: 'Прима-Аква, Акция', name: 'keywords'}
     = stylesheet_link_tag    'application', :media => 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -12,7 +15,7 @@
           %a{href: '/'}
             =image_tag 'logo.png'
         .main_content-header__content.pull-right
-          %a.main_content-header__content-button.pull-right.btn.yellow-el{href: '#'}
+          %a.main_content-header__content-button.pull-right.btn.yellow-el{href: '/participants/new'}
             ПРИНЯТЬ УЧАСТИЕ В АКЦИИ
           .main_content-header__content-contacts.menu-white.pull-right
             .main_content-header__content-contacts-city
@@ -21,19 +24,15 @@
               %span.glyphicon.glyphicon-earphone
               (812) 335-40-80
           .clearfix
-          .main_content-header__menu
-            %a.main_content-header__menu-link.menu-white{href: '#'}
-              Правила акции
-            %a.main_content-header__menu-link.menu-white{href: '#'}
-              Вопросы
-            %a.main_content-header__menu-link.menu-white{href: '#'}
-              Призы
-            %a.main_content-header__menu-link.menu-white{href: '#'}
-              Партнеры
-            %a.main_content-header__menu-link.menu-white{href: '#'}
-              О воде Прима Аква
-            %a.main_content-header__menu-link.menu-white{href: '#'}
-              О Болгарии
+          - if @pages
+            .main_content-header__menu
+              %a.main_content-header__menu-link.menu-white{href: url_for(@pages.first) }
+                = @pages.first.title
+              %a.main_content-header__menu-link.menu-white{href: '/participants/new'}
+                Анкета
+              - @pages.last(@pages.size-1).each do |page|
+                %a.main_content-header__menu-link.menu-white{href: url_for(page) }
+                  = page.title
 
       .main_content-body
         .main_content-body__gifts
@@ -74,7 +73,7 @@
                 100 наборов
                 %br
                 по 12х0,6л. воды
-              %a.one_case__gift_red_button.btn{href: '#'}
+              %a.one_case__gift_red_button.btn{href: '/participants/new?home=true'}
                 Выбрать
           .main_content-cases__body_office.col-md-4
             .one_case
@@ -97,7 +96,7 @@
                 100 наборов
                 %br
                 по 12х0,6л. воды
-              %a.one_case__gift_red_button.btn{href: '#'}
+              %a.one_case__gift_red_button.btn{href: '/participants/new?office=true'}
                 Выбрать
           .main_content-cases__body_shop.col-md-4
             .one_case
@@ -115,7 +114,7 @@
                 100 наборов
                 %br
                 по 12х0,6л. воды
-              %a.one_case__gift_red_button.btn{href: '#'}
+              %a.one_case__gift_red_button.btn{href: '/participants/new?shop=true'}
                 Выбрать
       .main_content-footer
         .main_content-footer__gift-text

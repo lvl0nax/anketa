@@ -14,3 +14,12 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+
+function show_bolgary(){
+  $('.yellow_anketa').show();
+}
+
+function hide_bolgary(){
+  $('.yellow_anketa').hide();
+}
