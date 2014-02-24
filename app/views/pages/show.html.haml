@@ -1,7 +1,6 @@
 .page_content
   %h2
-    = @page.title
+    = @page.try(:title)
 
   %div.page-body
-
-    = @page.content
+    = @page.content.html_safe

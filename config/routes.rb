@@ -5,6 +5,7 @@ Anketa::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   resources :pages, only: :show
+  resources :questions, only: :index
   resources :participants, only: [:new, :create]
   get 'thanks' => 'participants#thanks', as: :thanks
 

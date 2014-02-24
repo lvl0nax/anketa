@@ -537,3 +537,18 @@ h1, h2, h3, .normal {
     color: #ff0000;
   }
 }
+
+.questions_content{
+  width: 800px;
+  margin: 0 auto;
+}
+.page_centering{
+  text-align: center;
+}
+.panel-default > .panel-heading{
+  background-color: #eaf2f5;
+  a{
+    font-weight: bold;
+    font-size: 17px;
+  }
+}

@@ -28,8 +28,8 @@
             .main_content-header__menu
               %a.main_content-header__menu-link.menu-white{href: url_for(@pages_all.first) }
                 = @pages_all.first.title
-              %a.main_content-header__menu-link.menu-white{href: '/participants/new'}
-                Анкета
+              %a.main_content-header__menu-link.menu-white{href: '/questions'}
+                Вопросы
               - @pages_all.last(@pages_all.size-1).each do |page|
                 %a.main_content-header__menu-link.menu-white{href: url_for(page) }
                   = page.title
@@ -125,4 +125,4 @@
         .main_content-footer__text
           Акция для жителей Санкт-Петербурга
         .main_content-footer__rights
-          &copy; Аква Прима. #{Time.zone.now.year}
+          &copy; #{Time.zone.now.year}. ООО «Лидер-Аква» производство и доставка питьевой артезианской воды.

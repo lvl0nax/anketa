@@ -1,0 +1,14 @@
+.questions_content
+  %h2
+    Вопросы
+
+  #accordion.panel-group
+    - @questions.each do |question|
+      .panel.panel-default
+        .panel-heading
+          %h4.panel-title
+            %a{'data-parent' => '#accordion', 'data-toggle' => 'collapse', href: "#collapse#{question.id}"}
+              = question.content
+        .panel-collapse.collapse{id: "collapse#{question.id}"}
+          .panel-body
+            =question.answer

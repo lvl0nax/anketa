@@ -167,13 +167,14 @@
         .col-md-6
           %input#hotel1.custome_checkbox{name: 'participant[hotel][]', type: 'checkbox', value: 'Sunny Seasons', checked: (@params[:hotel].to_s.include?('Sunny Seasons') ? 'checked' : nil) }
           %label.checkbox{for: 'hotel1'}
-            %a{href: '#'}
-              Sunny Seasons
+            Sunny Seasons -
+            %a{href: 'http://www.rud-byala.com/ru/complexes/sunny-seasons/ss-4/', target: '_blank'}
+              подробнее
           %input#hotel2.custome_checkbox{name: 'participant[hotel][]', type: 'checkbox', value: 'Lucky Seasons', checked: (@params[:hotel].to_s.include?('Lucky Seasons') ? 'checked' : nil) }
           %label.checkbox{for: 'hotel2'}
-            %a{href: '#'}
-              Lucky Seasons
-
+            Lucky Seasons -
+            %a{href: 'http://www.rud-byala.com/ru/complexes/lucky-seasons/', target: '_blank'}
+              подробнее
       .input.participant_company
         .col-md-6
           %label.control-label.anketa_form__label

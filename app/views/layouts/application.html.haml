@@ -12,7 +12,7 @@
           %a{href: '/'}
             =image_tag 'logo.png'
         .main_content-header__content.pull-right
-          %a.main_content-header__content-button.pull-right.btn.yellow-el{href: '#'}
+          %a.main_content-header__content-button.pull-right.btn.yellow-el{href: '/participants/new'}
             ПРИНЯТЬ УЧАСТИЕ В АКЦИИ
           .main_content-header__content-contacts.pull-right
             .main_content-header__content-contacts-city
@@ -25,8 +25,8 @@
             .main_content-header__menu
               %a.content-header__menu-link{href: url_for(@pages_all.first) }
                 = @pages_all.first.title
-              %a.content-header__menu-link{href: '/participants/new'}
-                Анкета
+              %a.content-header__menu-link{href: '/questions'}
+                Вопросы
               - @pages_all.last(@pages_all.size-1).each do |page|
                 %a.content-header__menu-link{href: url_for(page) }
                   = page.title
@@ -38,4 +38,4 @@
         .main_content-footer__text
           Акция для жителей Санкт-Петербурга
         .main_content-footer__rights
-          &copy; Аква Прима. #{Time.zone.now.year}
+          &copy; #{Time.zone.now.year}. ООО «Лидер-Аква» производство и доставка питьевой артезианской воды.
