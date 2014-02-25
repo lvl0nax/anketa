@@ -16,10 +16,31 @@ class ParticipantsController < ApplicationController
     @params = {abroad_apartment: '', accessories: '', attitude: '', birthday: '', company: '',
                email: '', frequency: '', hotel: '', important_thing: '', improvements: '', name: '',
                phone: '', source_info: '', summer_holiday: '', surname: '', thirdname: '',
-               time_using: '', trip_time: '', drinking_place: ''}
+               time_using: '', trip_time: '', drinking_place: '', reason: ''}
     messages = {}
     if params[:participant][:accessories].blank?
       messages.merge! participant_accessories: 'Вопрос о сопутствующих товарах остался не отвеченным.'
+    end
+    if params[:participant][:surname].blank?
+      messages.merge! participant_surname: 'Фамилия осталась незаполненой.'
+    end
+    if params[:participant][:surname].present? && params[:participant][:surname] != params[:participant][:surname].match(/[а-яА-Я]+/).to_s
+      messages.merge! participant_surname: 'Фамилия может содержать только буквы от А до Я.'
+    end
+    if params[:participant][:name].present? && params[:participant][:name] != params[:participant][:name].match(/[а-яА-Я]+/).to_s
+      messages.merge! participant_name: 'Имя может содержать только буквы от А до Я.'
+    end
+    if params[:participant][:thirdname].present? && params[:participant][:thirdname] != params[:participant][:thirdname].match(/[а-яА-Я]+/).to_s
+      messages.merge! participant_thirdname: 'Отчетство может содержать только буквы от А до Я.'
+    end
+    if params[:participant][:phone].present? && params[:participant][:phone] != params[:participant][:phone].match(/7[0-9]{10}/).to_s
+      messages.merge! participant_phone: 'Телефон может иметь только следующий формат 7хххххххххх.'
+    end
+    if params[:participant][:email].present? && params[:participant][:email] != params[:participant][:email].match(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/).to_s
+      messages.merge! participant_email: 'E-mail имеет неверный формат.'
+    end
+    if params[:participant][:reason].blank?
+      messages.merge! participant_reason: 'Так почему же Вы пьете воду Прима Аква?'
     end
     if params[:participant][:email].blank?
       messages.merge! participant_email: 'Email остался не заполненым.'
@@ -38,9 +59,6 @@ class ParticipantsController < ApplicationController
     end
     if params[:participant][:source_info].blank?
       messages.merge! participant_source_info: 'Так откуда Вы о нас узнали?'
-    end
-    if params[:participant][:surname].blank?
-      messages.merge! participant_surname: 'Фамилия осталась незаполненой.'
     end
     if params[:participant][:thirdname].blank?
       messages.merge! participant_thirdname: 'Отчество осталось незаполненым.'
