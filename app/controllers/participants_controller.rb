@@ -4,20 +4,27 @@ class ParticipantsController < ApplicationController
     @params = {abroad_apartment: '', accessories: '', attitude: '', birthday: '', company: '',
                email: '', frequency: '', hotel: '', important_thing: '', improvements: '', name: '',
                phone: '', source_info: '', summer_holiday: '', surname: '', thirdname: '',
-               time_using: '', trip_time: '', drinking_place: ''}
+               time_using: '', trip_time: '', drinking_place: '', bolgary: ''}
   end
 
   def create
     params[:participant].each_key do |k|
       if params[:participant][k].is_a?(Array)
-        params[:participant][k] = params[:participant][k].join(' | ')
+        if params[:participant][k].count > 1
+          params[:participant][k] = params[:participant][k].join(' | ')
+        else
+          params[:participant][k] = params[:participant][k].first
+        end
       end
     end
     @params = {abroad_apartment: '', accessories: '', attitude: '', birthday: '', company: '',
                email: '', frequency: '', hotel: '', important_thing: '', improvements: '', name: '',
                phone: '', source_info: '', summer_holiday: '', surname: '', thirdname: '',
-               time_using: '', trip_time: '', drinking_place: '', reason: ''}
+               time_using: '', trip_time: '', drinking_place: '', reason: '', bolgary: ''}
     messages = {}
+    if params[:participant][:bolgary].blank?
+      messages.merge! participant_bolgary: 'Ответьте , пожалуйста, хотите ли вы участвовать в розыгрыше за суперприз?'
+    end
     if params[:participant][:accessories].blank?
       messages.merge! participant_accessories: 'Вопрос о сопутствующих товарах остался не отвеченным.'
     end
@@ -68,6 +75,29 @@ class ParticipantsController < ApplicationController
     end
     if params[:participant][:drinking_place].blank?
       messages.merge! participant_drinking_place: 'Вопрос о месте употребления воды остался не отвеченным.'
+    end
+    if params[:participant][:bolgary] && params[:participant][:bolgary] == 'участвую'
+      if params[:participant][:hotel].blank?
+        messages.merge! participant_hotel: 'Вопрос об отеле остался не отвеченным.'
+      end
+      if params[:participant][:company].blank?
+        messages.merge! participant_company: 'Так с кем же Вы хотели бы поехать в Болгарию.'
+      end
+      if params[:participant][:trip_time].blank?
+        messages.merge! participant_trip_time: 'Ответьте, пожалуйста, когда бы Вы поехали в Болгарию.'
+      end
+      if params[:participant][:frequency].blank?
+        messages.merge! participant_frequency: 'Вопрос о том как часто Вы отдыхаете на море остался не отвеченным.'
+      end
+      if params[:participant][:summer_holiday].blank?
+        messages.merge! participant_summer_holiday: 'Вопрос о планах на отдых остался не отвеченным.'
+      end
+      if params[:participant][:attitude].blank?
+        messages.merge! participant_attitude: 'Ответьте, пожалуйста, как Вы относитесь к Болгарии.'
+      end
+      if params[:participant][:abroad_apartment].blank?
+        messages.merge! participant_abroad_apartment: 'Вопрос о недвижимости за рубежом остался не отвеченным.'
+      end
     end
     @messages = messages
     @params.merge!(params[:participant].symbolize_keys)

@@ -18,8 +18,10 @@
 
 function show_bolgary(){
   $('.yellow_anketa').show();
+  $('#bolgary').val('участвую');
 }
 
 function hide_bolgary(){
   $('.yellow_anketa').hide();
+  $('#bolgary').val('не участвую');
 }

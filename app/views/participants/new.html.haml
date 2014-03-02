@@ -174,7 +174,7 @@
           %textarea.wish_text{name: 'participant[wish][]', placeholder: 'Ваши пожелания...', type: 'text' }
             = @params[:wish]
       .clearfix
-      .anketa_form__prise-agreement
+      .anketa_form__prise-agreement{class: (@messages.present? && @messages[:participant_bolgary]) ? 'error_prise' : '' }
         .anketa_form__prise-agreement-content
           .anketa_form__prise-agreement-content__text
             Суперприз - поездка на море с семьей в Болгарию!
@@ -185,9 +185,10 @@
               Да, хочу
             %a.pull-left.btn.yellow-el.big_button.js-hide-bolgary{href: 'javascript:void(0);', onclick: 'hide_bolgary();'}
               Нет
+            %input#bolgary{name: 'participant[bolgary][]', value: @params[:bolgary], type: :hidden }
 
-    .anketa_form.yellow_anketa
-      .input.participant_hotel
+    .anketa_form.yellow_anketa{ class: ((@params[:bolgary] && @params[:bolgary] == 'участвую') ? 'shown_anket' : nil) }
+      .input.participant_hotel{class: (@messages.present? && @messages[:participant_hotel]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Если Вы выиграете главный приз, то в каком из двух комплексов хотели бы остановиться?
@@ -202,7 +203,8 @@
             Lucky Seasons -
             %a{href: 'http://www.rud-byala.com/ru/complexes/lucky-seasons/', target: '_blank'}
               подробнее
-      .input.participant_company
+
+      .input.participant_company{class: (@messages.present? && @messages[:participant_company]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Если Вы выиграете главный приз, то кого возьмете с собой (приз рассчитан на 4 человек)?
@@ -220,7 +222,7 @@
           %label.checkbox{for: 'company4'}
             Родителей
 
-      .input.participant_trip_time
+      .input.participant_trip_time{class: (@messages.present? && @messages[:participant_trip_time]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Если Вы выиграете главный приз, то в какое время Вы поедите?
@@ -247,7 +249,7 @@
           %label.checkbox{for: 'trip_time7'}
             Первая половина сентября
 
-      .input.participant_frequency
+      .input.participant_frequency{class: (@messages.present? && @messages[:participant_frequency]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Как часто Вы и/или члены Вашей семьи отдыхаете на море?
@@ -265,7 +267,7 @@
           %label.checkbox{for: 'frequency4'}
             Более 2 раз в год
 
-      .input.participant_summer_holiday
+      .input.participant_summer_holiday{class: (@messages.present? && @messages[:participant_summer_holiday]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Планировали ли Вы уже отдых свой летний отдых, и если да, то куда?
@@ -283,7 +285,7 @@
           %label.checkbox{for: 'summer_holiday4'}
             Планировал в Россию
 
-      .input.participant_attitude
+      .input.participant_attitude{class: (@messages.present? && @messages[:participant_attitude]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Оцените по 5-ти бальной шкале Ваше впечатление о Болгарии
@@ -307,7 +309,7 @@
           %label.checkbox{for: 'attitude5'}
             5
 
-      .input.participant_abroad_apartment
+      .input.participant_abroad_apartment{class: (@messages.present? && @messages[:participant_abroad_apartment]) ? 'error_field' : '' }
         .col-md-6
           %label.control-label.anketa_form__label
             Задумывались ли Вы о покупке недвижимости за рубежом
