@@ -173,6 +173,10 @@
         .col-md-6
           %textarea.wish_text{name: 'participant[wish][]', placeholder: 'Ваши пожелания...', type: 'text' }
             = @params[:wish]
+
+      .input.participant_picture
+        = f.input :picture, label: 'Прима Аква в Вашей жизни. ( Размести фото с продукцией Прима Аква в офисе или дома )'
+
       .clearfix
       .anketa_form__prise-agreement{class: (@messages.present? && @messages[:participant_bolgary]) ? 'error_prise' : '' }
         .anketa_form__prise-agreement-content
@@ -323,5 +327,6 @@
           %input#abroad_apartment3.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Нет, не думал об этом', checked: (@params[:abroad_apartment].to_s.include?('Нет, не думал об этом') ? 'checked' : nil) }
           %label.checkbox{for: 'abroad_apartment3'}
             Нет, не думал об этом
+
     .anketa_submit_button
       = f.button :submit, 'Принять участие', class: 'btn red_button'
