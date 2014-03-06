@@ -169,13 +169,13 @@
       .input.participant_wish
         .col-md-6
           %label.control-label.anketa_form__label
-            Чтобы Вы хотели, чтобы мы улучшили в нашем сервисе?
+            Ваши пожелания к работе нашей компании:
         .col-md-6
           %textarea.wish_text{name: 'participant[wish][]', placeholder: 'Ваши пожелания...', type: 'text' }
             = @params[:wish]
 
       .input.participant_picture
-        = f.input :picture, label: 'Прима Аква в Вашей жизни. ( Размести фото с продукцией Прима Аква в офисе или дома )'
+        = f.input :picture, label: 'Прима Аква в Вашей жизни. ( Разместите фото с продукцией Прима Аква в офисе или дома )'
 
       .clearfix
       .anketa_form__prise-agreement{class: (@messages.present? && @messages[:participant_bolgary]) ? 'error_prise' : '' }
