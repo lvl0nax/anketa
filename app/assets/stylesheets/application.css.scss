@@ -511,7 +511,7 @@ h1, h2, h3, .normal {
 
 .yellow_anketa{
   background-color: #f7e754;
-  height: 1255px;
+  min-height: 1270px;
   box-shadow: inset 0px 7px 22px #e9d939;
   display: none;
 }
@@ -566,4 +566,9 @@ h1, h2, h3, .normal {
 
 .shown_anket{
   display: block;
+}
+
+.inline_label{
+  display: inline-block;
+  margin-right: 15px;
 }

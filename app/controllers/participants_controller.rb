@@ -10,6 +10,7 @@ class ParticipantsController < ApplicationController
   def create
     params[:participant].each_key do |k|
       if params[:participant][k].is_a?(Array)
+        params[:participant][k].delete_if{|el| el.blank?}
         if params[:participant][k].count > 1
           params[:participant][k] = params[:participant][k].join(' | ')
         else

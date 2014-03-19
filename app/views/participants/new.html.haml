@@ -174,9 +174,6 @@
           %textarea.wish_text{name: 'participant[wish][]', placeholder: 'Ваши пожелания...', type: 'text' }
             = @params[:wish]
 
-      .input.participant_picture
-        = f.input :picture, label: 'Прима Аква в Вашей жизни. ( Разместите фото с продукцией Прима Аква в офисе или дома )'
-
       .clearfix
       .anketa_form__prise-agreement{class: (@messages.present? && @messages[:participant_bolgary]) ? 'error_prise' : '' }
         .anketa_form__prise-agreement-content
@@ -187,7 +184,7 @@
           .anketa_form__prise-agreement-content__buttons
             %a.pull-left.btn.white_el.js-show-bolgary{href: 'javascript:void(0);', onclick: 'show_bolgary();'}
               Да, хочу
-            %a.pull-left.btn.yellow-el.big_button.js-hide-bolgary{href: 'javascript:void(0);', onclick: 'hide_bolgary();'}
+            %a.pull-left.btn.white_el.big_button.js-hide-bolgary{href: 'javascript:void(0);', onclick: 'hide_bolgary();'}
               Нет
             %input#bolgary{name: 'participant[bolgary][]', value: @params[:bolgary], type: :hidden }
 
@@ -298,19 +295,19 @@
           %label.checkbox{for: 'attitude6'}
             не был в Болгарии ни разу
           %input#attitude1.custome_checkbox{name: 'participant[attitude][]', type: 'radio', value: '1', checked: (@params[:attitude].to_s.include?('1') ? 'checked' : nil) }
-          %label.checkbox{for: 'attitude1'}
+          %label.checkbox.inline_label{for: 'attitude1'}
             1
           %input#attitude2.custome_checkbox{name: 'participant[attitude][]', type: 'radio', value: '2', checked: (@params[:attitude].to_s.include?('2') ? 'checked' : nil) }
-          %label.checkbox{for: 'attitude2'}
+          %label.checkbox.inline_label{for: 'attitude2'}
             2
           %input#attitude3.custome_checkbox{name: 'participant[attitude][]', type: 'radio', value: '3', checked: (@params[:attitude].to_s.include?('3') ? 'checked' : nil) }
-          %label.checkbox{for: 'attitude3'}
+          %label.checkbox.inline_label{for: 'attitude3'}
             3
           %input#attitude4.custome_checkbox{name: 'participant[attitude][]', type: 'radio', value: '4', checked: (@params[:attitude].to_s.include?('4') ? 'checked' : nil) }
-          %label.checkbox{for: 'attitude4'}
+          %label.checkbox.inline_label{for: 'attitude4'}
             4
           %input#attitude5.custome_checkbox{name: 'participant[attitude][]', type: 'radio', value: '5', checked: (@params[:attitude].to_s.include?('5') ? 'checked' : nil) }
-          %label.checkbox{for: 'attitude5'}
+          %label.checkbox.inline_label{for: 'attitude5'}
             5
 
       .input.participant_abroad_apartment{class: (@messages.present? && @messages[:participant_abroad_apartment]) ? 'error_field' : '' }
@@ -327,6 +324,9 @@
           %input#abroad_apartment3.custome_checkbox{name: 'participant[abroad_apartment][]', type: 'checkbox', value: 'Нет, не думал об этом', checked: (@params[:abroad_apartment].to_s.include?('Нет, не думал об этом') ? 'checked' : nil) }
           %label.checkbox{for: 'abroad_apartment3'}
             Нет, не думал об этом
+
+      .input.participant_picture
+        = f.input :picture, label: 'Прима Аква в Вашей жизни. ( Разместите фото с продукцией Прима Аква в офисе или дома )'
 
     .anketa_submit_button
       = f.button :submit, 'Принять участие', class: 'btn red_button'
